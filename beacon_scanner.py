@@ -4,7 +4,45 @@ import struct
 import pandas as pd
 from datetime import datetime
 import logging
+import aiohttp
+import json
 
+
+class BeaconBackendConnector:
+    def __init__(self, base_url="http://localhost:8000"):
+        self.base_url = base_url
+        self.token = None
+        
+    async def authenticate(self):
+        async with aiohttp.ClientSession() as session:
+            auth_data = {
+                "username": "your_username",
+                "password": "your_password"
+            }
+            async with session.post(f"{self.base_url}/api/auth/login/", json=auth_data) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    self.token = data['tokens']['access']
+                    return True
+                return False
+
+    async def send_beacon_data(self, data):
+        if not self.token:
+            await self.authenticate()
+            
+        headers = {
+            "Authorization": f"Bearer {self.token}",
+            "Content-Type": "application/json"
+        }
+        
+        async with aiohttp.ClientSession() as session:
+            async with session.post(
+                f"{self.base_url}/api/beacon/data/",
+                headers=headers,
+                json=data
+            ) as response:
+                return await response.json()
+            
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

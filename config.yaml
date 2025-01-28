@@ -1,0 +1,17 @@
+beacon:
+  name: "BeaconXProW6"
+  manufacturer_id: 0x0059  # Replace with actual ID
+  characteristics:
+    manufacturer_data: "0000180A-0000-1000-8000-00805F9B34FB"
+    sensor_data: "0000180F-0000-1000-8000-00805F9B34FB"
+    battery: "00002A19-0000-1000-8000-00805F9B34FB"
+
+scanning:
+  interval: 1.0
+  window: 0.1
+  timeout: 5.0
+
+backend:
+  url: "http://localhost:8000"
+  username: "your_username"
+  password: "your_password"
