@@ -54,7 +54,7 @@ class BeaconXProW6Scanner:
 
     async def detection_callback(self, device, advertisement_data):
         if device.address not in self.known_devices:
-            # Check if it's a MokoSmart device
+            # Checking if it's a MokoSmart device
             if self.is_mokosmart_device(advertisement_data):
                 logger.info(f"Found MokoSmart device: {device.address}")
                 self.known_devices[device.address] = {
@@ -65,15 +65,15 @@ class BeaconXProW6Scanner:
 
     def is_mokosmart_device(self, advertisement_data):
         # Check manufacturer data for MokoSmart identifier
-        # You'll need to replace this with the actual identifier for your W6 device
-        manufacturer_id = 0x0059  # Example ID - replace with actual MokoSmart ID
+        
+        manufacturer_id = 0x0059  # actual MokoSmart ID
         if advertisement_data.manufacturer_data:
             return manufacturer_id in advertisement_data.manufacturer_data
         return False
 
     async def read_manufacturer_data(self, client):
         # Read manufacturer-specific data
-        # Replace UUID with actual characteristic UUID for your W6 device
+       
         manufacturer_char_uuid = "0000180A-0000-1000-8000-00805F9B34FB"
         try:
             manufacturer_data = await client.read_gatt_char(manufacturer_char_uuid)
@@ -84,7 +84,7 @@ class BeaconXProW6Scanner:
 
     async def read_sensor_data(self, client):
         # Read sensor data
-        # Replace UUID with actual characteristic UUID for your W6 device
+       
         sensor_char_uuid = "0000180F-0000-1000-8000-00805F9B34FB"
         try:
             sensor_data = await client.read_gatt_char(sensor_char_uuid)
@@ -95,7 +95,7 @@ class BeaconXProW6Scanner:
 
     def parse_manufacturer_data(self, data):
         # Parse manufacturer data according to W6 specification
-        # Replace with actual parsing logic for your device
+        
         try:
             return {
                 'raw_data': data.hex(),
@@ -107,7 +107,7 @@ class BeaconXProW6Scanner:
 
     def parse_sensor_data(self, data):
         # Parse sensor data according to W6 specification
-        # Replace with actual parsing logic for your device
+       
         try:
             return {
                 'raw_data': data.hex(),
@@ -126,7 +126,7 @@ class BeaconXProW6Scanner:
         }
         self.data_records.append(record)
         
-        # Save to CSV
+        # this saves to csv format
         try:
             df = pd.DataFrame(self.data_records)
             df.to_csv('beacon_data.csv', index=False)
