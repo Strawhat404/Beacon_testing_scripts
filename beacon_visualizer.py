@@ -19,7 +19,8 @@ class BeaconDataVisualizer:
             self.ax2.clear()
             
             # Plot RSSI over time
-            self.ax1.plot(df['timestamp'], df['rssi'], 'b-')
+            self.ax1.plot(df['timestamp'], df['rss
+                                              , 'b-')
             self.ax1.set_title('RSSI Over Time')
             self.ax1.set_xlabel('Time')
             self.ax1.set_ylabel('RSSI (dBm)')
@@ -41,4 +42,4 @@ class BeaconDataVisualizer:
 
 if __name__ == "__main__":
     visualizer = BeaconDataVisualizer()
-    visualizer.start()
+    visualizer.
