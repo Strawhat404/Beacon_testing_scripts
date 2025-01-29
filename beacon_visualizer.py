@@ -42,4 +42,4 @@ class BeaconDataVisualizer:
 
 if __name__ == "__main__":
     visualizer = BeaconDataVisualizer()
-    visualizer.
+    visualizer.start()
